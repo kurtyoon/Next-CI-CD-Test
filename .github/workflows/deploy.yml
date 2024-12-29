@@ -53,6 +53,14 @@ jobs:
         with:
           name: build
 
+      - name: Prepare Build Context
+        run: |
+          mkdir -p ./build-context
+          mv .next ./build-context/.next
+          mv public ./build-context/public
+          mv package.json ./build-context/package.json
+          mv Dockerfile ./build-context/Dockerfile
+
       - name: Push Docker Image to Registry
         uses: docker/login-action@v3
         with:
@@ -64,11 +72,11 @@ jobs:
         with:
           platform: linux/arm64
 
-      - name: Build and Push
+      - name: Build and Push Docker Image
         uses: docker/build-push-action@v4
         with:
-          context: .
-          file: Dockerfile
+          context: ./build-context
+          file: ./build-context/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}:${{ secrets.DOCKER_TAG }}
 
