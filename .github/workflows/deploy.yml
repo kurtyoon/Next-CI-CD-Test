@@ -41,6 +41,7 @@ jobs:
             .next
             public
             package.json
+            Dockerfile
 
   integration:
     runs-on: ubuntu-20.04
