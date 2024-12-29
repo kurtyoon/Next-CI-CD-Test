@@ -2,10 +2,11 @@ FROM node:20-alpine
 
 WORKDIR /app
 
+COPY ./package.json ./
+RUN yarn install --production
+
 COPY ./public ./public
 COPY ./.next ./.next
-COPY ./node_modules ./node_modules
-COPY ./package.json ./
 
 EXPOSE 3000
 
