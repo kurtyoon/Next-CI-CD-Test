@@ -31,17 +31,19 @@ jobs:
         run: yarn install --immutable
 
       - name: Build application
-        run: yarn build
+        run: |
+          set -e
+          yarn build
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v3
         with:
           name: build
           path: |
-            .next
-            public
-            package.json
-            Dockerfile
+            ./.next
+            ./public
+            ./package.json
+            ./Dockerfile
 
   integration:
     runs-on: ubuntu-20.04
