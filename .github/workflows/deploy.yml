@@ -35,6 +35,13 @@ jobs:
           set -e
           yarn build
 
+      - name: Check Build
+        run: |
+          ls -la ./.next
+          ls -la ./public
+          ls -la ./package.json
+          ls -la ./Dockerfile
+
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v3
         with:
